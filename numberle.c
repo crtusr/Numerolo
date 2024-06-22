@@ -1,10 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdbool.h>
+#include <windows.h>
+
+void setTextColor (int color) {
+	HANDLE hConsole= GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, color);
+}
 
 int main()
 {
+	#define GREEN 10
+	#define ORANGE 6
+	#define RESET 7
+
 	//set minimum and maximum values of the answer
 	int min = 1000, max = 999999;
 
@@ -120,10 +129,14 @@ inputans:
 	
 	for (int i = 0; i < nofdigits; i++) {
 		if (marked[i] == 2) {
-			printf("\033[32m%d\033[0m", trydigits[i]); //green
+			setTextColor(GREEN);
+			printf("%d", trydigits[i]); //green
+			setTextColor(RESET);
 			}
 		 if (marked[i] == 1) {
-			printf("\033[33m%d\033[0m", trydigits[i]); //yellow
+			setTextColor(ORANGE);
+			printf("%d", trydigits[i]); //orange
+			setTextColor(RESET);
 			}
 		 if (marked[i] == 0) {
 				printf("%d", trydigits[i]); //no color
